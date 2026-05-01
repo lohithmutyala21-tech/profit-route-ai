@@ -7,12 +7,21 @@ interface OrdersTableProps {
   selectedOrderId?: string;
 }
 
-type SortKey = "id" | "distance" | "orderValue" | "successProbability" | "priorityScore";
+type SortKey = "id" | "distance" | "orderValue" | "successProbability" | "priorityScore" | "expectedProfit" | "confidenceScore";
 
 const riskBadge = (r: string) => {
   const cls = r === "low" ? "risk-badge-low" : r === "medium" ? "risk-badge-medium" : "risk-badge-high";
   const label = r === "low" ? "🟢 Low" : r === "medium" ? "🟡 Medium" : "🔴 High";
   return <span className={`${cls} px-2 py-0.5 rounded-full text-xs font-medium`}>{label}</span>;
+};
+
+const confBadge = (level: string, score: number) => {
+  const cls = level === "High" ? "text-risk-low bg-risk-low/10" : level === "Medium" ? "text-risk-medium bg-risk-medium/10" : "text-risk-high bg-risk-high/10";
+  return (
+    <span className={`${cls} px-2 py-0.5 rounded-full text-[10px] font-medium`} title={`Confidence: ${score}%`}>
+      {score}%
+    </span>
+  );
 };
 
 export function OrdersTable({ orders, onSelectOrder, selectedOrderId }: OrdersTableProps) {
@@ -48,6 +57,8 @@ export function OrdersTable({ orders, onSelectOrder, selectedOrderId }: OrdersTa
               <th className={`${headerCls} hidden md:table-cell`}>Type</th>
               <th className={headerCls} onClick={() => toggleSort("successProbability")}>Success %</th>
               <th className={`${headerCls} hidden md:table-cell`}>Risk</th>
+              <th className={headerCls} onClick={() => toggleSort("expectedProfit")}>Profit</th>
+              <th className={headerCls} onClick={() => toggleSort("confidenceScore")}>Conf.</th>
               <th className={headerCls} onClick={() => toggleSort("priorityScore")}>Priority</th>
             </tr>
           </thead>
@@ -69,6 +80,8 @@ export function OrdersTable({ orders, onSelectOrder, selectedOrderId }: OrdersTa
                 </td>
                 <td className="px-3 py-2.5 font-mono">{Math.round(o.successProbability * 100)}%</td>
                 <td className="px-3 py-2.5 hidden md:table-cell">{riskBadge(o.riskCategory)}</td>
+                <td className={`px-3 py-2.5 font-mono ${o.expectedProfit >= 0 ? "text-risk-low" : "text-risk-high"}`}>₹{o.expectedProfit}</td>
+                <td className="px-3 py-2.5">{confBadge(o.confidenceLevel, o.confidenceScore)}</td>
                 <td className="px-3 py-2.5 font-mono font-semibold text-primary">{o.priorityScore.toFixed(3)}</td>
               </tr>
             ))}
