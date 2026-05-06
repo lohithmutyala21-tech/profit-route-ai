@@ -36,9 +36,13 @@ export const Route = createRootRoute({
       { name: "description", content: "Optimize delivery routes based on profit, risk, and efficiency — not just distance." },
       { name: "author", content: "PayRoute AI" },
       { property: "og:title", content: "PayRoute AI — Profit-Aware Logistics Decision Engine" },
-      { property: "og:description", content: "Transforming logistics from distance-based routing to profit-aware decision intelligence." },
+      { property: "og:description", content: "Optimize delivery routes based on profit, risk, and efficiency — not just distance." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "PayRoute AI — Profit-Aware Logistics Decision Engine" },
+      { name: "twitter:description", content: "Optimize delivery routes based on profit, risk, and efficiency — not just distance." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/rSp4QNGYBpO903hIHFcU2hDlPp62/social-images/social-1778057206580-payrouteaisocial.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/rSp4QNGYBpO903hIHFcU2hDlPp62/social-images/social-1778057206580-payrouteaisocial.webp" },
     ],
     links: [
       {
